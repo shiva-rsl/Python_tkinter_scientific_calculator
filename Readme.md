@@ -1,103 +1,109 @@
+<h1 align="center">Scientific Calculator — Python Tkinter</h1>
 
-<h1 align='center'> Scientific calculator - Python Tkinter </h'>
-
-<p align='center'>
-
+<p align="center">
 <img src="https://img.shields.io/badge/Language-Python-blue" />
 <img src="https://img.shields.io/badge/Interface-GUI-orange" />
 <img src="https://img.shields.io/badge/Built%20With-Tkinter-brightgreen" />
-<img src="https://img.shields.io/badge/Built%20With-Tkinter-blueviolet" />
 <img src="https://img.shields.io/badge/License-MIT-yellow" />
 </p>
 
-
-
-## 📂 Table of contents
+## Table of contents
 
 - [What is Tkinter?](#what-is-tkinter)
-- [📝 Description](#-description)
-- [💾 Installation](#-installation)
-- [⚙️ Requirements](#️-requirements)
-- [✨ Features](#-features)
-- [📸 Screenshots](#-screenshots)
-- [🧾 License](#license)
-- [📽️ Demo](#demo)
-
+- [Description](#description)
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [Features](#features)
+- [How it works](#how-it-works)
+- [Project structure](#project-structure)
+- [Screenshots](#screenshots)
+- [License](#license)
 
 ## What is Tkinter?
 
+[Tkinter](https://docs.python.org/3/library/tkinter.html) is the standard GUI library for Python. It ships with most Python installations and is used here for buttons, labels, and the expression entry field.
 
-[**Tkinter**](https://docs.python.org/3/library/tkinter.html) is the standard GUI library for Python. It allows developers to create desktop applications with simple widgets like buttons, labels, entries, etc. Tkinter is built into Python, so no additional installation is required for most environments.
+## Description
 
+A desktop scientific calculator built with Python and Tkinter. The interface builds an expression; a separate engine normalizes symbols, validates the expression with Python’s AST, and evaluates it using a math-only namespace (not unrestricted `eval`).
 
+Trigonometry supports **degrees** and **radians**. `%` is **percent** (`50%` = `0.5`). Absolute value uses `abs(` (the `|x|` button), which is unambiguous for expression evaluation.
 
+## Installation
 
-## 📝 Discription
+1. Clone this repository:
 
-This project is a modern Scientific Calculator built with Python and Tkinter, designed to provide a clean and intuitive user experience across platforms.
-
-It supports basic arithmetic and advanced functions like trigonometry, logarithms, exponents, square roots, and constants (π, e). The layout is designed to resemble a real scientific calculator, offering a user-friendly and functional GUI.
-
-
-
-## 💾 Installation
-
-1. Clone thin repository:
 ```
 git clone https://github.com/shiva-rsl/Python_Tkinter_Calculator.git
 ```
 
-2. Navigate to the project directory:
+2. Open the project folder:
+
 ```
 cd Python_Tkinter_Calculator
 ```
 
 3. Run the calculator:
+
 ```
 python calculator_tkinter.py
 ```
 
-## ⚙️ Requirements
+## Requirements
 
+- Python 3.10+
+- Tkinter (included with most Python installs)
 
-- Python 3.12+
-- Tkinter (comes pre-installed with Python)
+On Debian/Ubuntu, if Tkinter is missing:
 
+```
+sudo apt install python3-tk
+```
 
-## ✨ Features
+## Features
 
-- Standard operations: `+`, `-`, `×`, `÷`, `%`, etc.
+- Arithmetic: `+`, `-`, `×`, `÷`, `^`, parentheses
+- Percent: `50%` → `0.5`
+- Trigonometry: `sin`, `cos`, `tan` with Deg / Rad mode
+- Hyperbolic: `sinh`, `cosh`, `tanh`
+- Logs: `log10`, `log2`, `ln`
+- `√`, `exp`, `n!`, `1/x`, `x²`, `x³`, `x^y`
+- Constants `π` and `e`, with implicit multiplication (`2π`, `2(3+4)`)
+- Absolute value via `|x|` → `abs(`
+- `CE` clears the current entry; `AC` clears the entry and the history line
+- Keyboard: type in the field, `Enter` calculates, `Esc` is all-clear; `*` and `/` become `×` and `÷`
+- Errors show in the status label instead of crashing (division by zero, domain errors, unmatched parentheses)
 
-- Scientific functions: `sin`, `cos`, `tan`, `sinh`, `log`, `ln`, `sqrt`, `factorial`, `^`, etc.
+## How it works
 
-- Use of Unicode symbols: `√`, `π`, `e`, etc.
+1. Buttons insert tokens into the entry field.
+2. `engine.py` maps display symbols (`×`, `÷`, `^`, `π`, `√`, `ln`, `%`, `!`) to Python.
+3. The AST is checked so only math names and operators are allowed.
+4. `sin` / `cos` / `tan` use degree or radian mode; hyperbolic functions always use radians.
 
-- Parentheses support for complex expressions
+Run the engine tests:
 
-- Negative number handling
+```
+python -m unittest test_engine.py
+```
 
-- `CE` and `AC` buttons
+## Project structure
 
-- Mouse-driven interface (no need for typing)
+```
+calculator_tkinter.py   # Tkinter UI
+engine.py               # Expression parsing and evaluation
+test_engine.py          # Unit tests for the engine
+LICENSE                 # MIT
+```
 
-- Designed for cross-platform compatibility (Linux, Windows, macOS)
+## Screenshots
 
+Light-themed scientific calculator GUI:
 
-## 📸 Screenshots
+<img src="Screenshots/calc.png" width="300" alt="Scientific calculator screenshot">
 
-Light-themed scientific calculator with GUI buttons
+Add `Screenshots/calc.png` after you capture the running app (the window is 500×760).
 
+## License
 
-<img src="Screenshots/calc.png" width="300" height="479">
-
-## 🧾 License
-
-This project is licensed under the MIT License. 
-
-For more information please view the [license description](https://choosealicense.com/licenses/mit/).
-
-
-## 📽️ Demo
-
-Coming soon...
-
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
