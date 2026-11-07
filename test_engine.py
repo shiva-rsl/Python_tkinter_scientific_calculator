@@ -74,5 +74,24 @@ class CalculatorEngineTests(unittest.TestCase):
             self.engine.format_result(-(2**1000)),
             "-1.071508607186e+301",
         )
+
+    def test_rejects_boolean_and_string_constants(self) -> None:
+        for expression in ("True", "False", "'hello'"):
+            with self.subTest(expression=expression):
+                with self.assertRaises(CalculatorError):
+                    self.engine.evaluate(expression)
+
+
+    def test_rejects_excessively_large_exponent(self) -> None:
+        with self.assertRaises(CalculatorError):
+            self.engine.evaluate("2^1001")
+
+
+    def test_rejects_complex_expression(self) -> None:
+        expression = "+".join(["1"] * 101)
+
+        with self.assertRaises(CalculatorError):
+            self.engine.evaluate(expression)
+
 if __name__ == "__main__":
     unittest.main()
