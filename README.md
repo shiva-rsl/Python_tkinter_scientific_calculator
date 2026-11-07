@@ -1,10 +1,13 @@
 <h1 align="center">Scientific Calculator — Python Tkinter</h1>
 
 <p align="center">
+<img src="https://img.shields.io/badge/status-complete-red" />
 <img src="https://img.shields.io/badge/Language-Python-blue" />
+<img src="https://img.shields.io/badge/Python%20Version-3.12-blueviolet" />
 <img src="https://img.shields.io/badge/Interface-GUI-orange" />
 <img src="https://img.shields.io/badge/Built%20With-Tkinter-brightgreen" />
 <img src="https://img.shields.io/badge/License-MIT-yellow" />
+<img src="https://img.shields.io/badge/Last%20Updated-November%202026-FF5722" />
 </p>
 
 ## Table of contents
