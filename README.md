@@ -102,7 +102,6 @@ Light-themed scientific calculator GUI:
 
 <img src="Screenshots/calc.png" width="300" alt="Scientific calculator screenshot">
 
-Add `Screenshots/calc.png` after you capture the running app (the window is 500×760).
 
 ## License
 
