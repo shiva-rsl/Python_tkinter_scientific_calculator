@@ -106,25 +106,36 @@ class CalculatorEngine:
         return self.format_result(value)
 
     def format_result(self, value: object) -> str:
-        if isinstance(value, int):
-            if len(str(abs(value))) > 16:
-                return f"{value:.12e}"
-            return str(value)
+        if isinstance(value, bool):
+            raise CalculatorError("Invalid expression")
+
         if isinstance(value, complex):
             raise CalculatorError("Complex results are not supported")
-        if isinstance(value, bool) or not isinstance(value, (int, float)):
+
+        if not isinstance(value, (int, float)):
             raise CalculatorError("Invalid expression")
+
         if isinstance(value, float) and not math.isfinite(value):
             raise CalculatorError("Undefined result")
 
         if isinstance(value, int):
+            if len(str(abs(value))) > 16:
+                return f"{value:.12e}"
             return str(value)
 
         rounded = round(float(value), 12)
+
         if abs(rounded - round(rounded)) < 1e-12:
             return str(int(round(rounded)))
+
         return format(rounded, ".12g")
 
+    def _power(self, base: float, exponent: float) -> float:
+        if abs(exponent) > 1000:
+            raise CalculatorError("Exponent too large")
+
+        return base ** exponent
+        
     def _namespace(self) -> dict[str, object]:
         return {
             "pi": math.pi,
@@ -142,6 +153,7 @@ class CalculatorEngine:
             "exp": math.exp,
             "abs": abs,
             "factorial": self._factorial,
+            "pow": self._power,
         }
 
     def _trig(self, func: Callable[[float], float]) -> Callable[[float], float]:
@@ -297,14 +309,42 @@ class CalculatorEngine:
         except SyntaxError as exc:
             raise CalculatorError("Invalid expression") from exc
 
-        for node in ast.walk(tree):
+        nodes = list(ast.walk(tree))
+
+        if len(nodes) > 100:
+            raise CalculatorError("Expression is too complex")
+
+        for node in nodes:
             if isinstance(node, ast.Call):
                 if not isinstance(node.func, ast.Name) or node.func.id not in _ALLOWED_FUNCS:
                     raise CalculatorError("Invalid expression")
+
                 if node.keywords:
                     raise CalculatorError("Invalid expression")
+
+            elif isinstance(node, ast.BinOp) and isinstance(node.op, ast.Pow):
+                if isinstance(node.right, ast.Constant):
+                    exponent = node.right.value
+
+                    if (
+                        isinstance(exponent, (int, float))
+                        and not isinstance(exponent, bool)
+                        and abs(exponent) > 1000
+                    ):
+                        raise CalculatorError("Exponent too large")
+
             elif isinstance(node, ast.Name):
                 if node.id not in _ALLOWED_NAMES:
                     raise CalculatorError("Invalid expression")
+
+            elif isinstance(node, ast.Constant):
+                if isinstance(node.value, bool) or not isinstance(
+                    node.value, (int, float)
+                ):
+                    raise CalculatorError("Invalid expression")
+
+                if isinstance(node.value, int) and node.value.bit_length() > 1024:
+                    raise CalculatorError("Number too large")
+
             elif not isinstance(node, _ALLOWED_AST):
                 raise CalculatorError("Invalid expression")
