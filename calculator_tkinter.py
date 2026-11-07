@@ -47,7 +47,7 @@ class CalculatorApp:
     def _build_display(self) -> None:
         self.result_label = tk.Label(
             master=self.window,
-            font=("sans-serif", 14, "bold"),
+            font=("sans-serif", 20, "bold"),
             height=3,
             background="#B3AEAE",
             wraplength=480,
@@ -153,13 +153,47 @@ class CalculatorApp:
                 skip_indexes.append(index)
 
         cols = 6
+        # for index, button in enumerate(calc_buttons):
+        #     if index in skip_indexes:
+        #         continue
+        #     row = index // cols + 2
+        #     col = index % cols
+        #     button.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
         for index, button in enumerate(calc_buttons):
             if index in skip_indexes:
                 continue
+
             row = index // cols + 2
             col = index % cols
-            button.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
 
+            if button["text"] == "-":
+                row = 8
+                col = 5
+
+            button.grid(
+                row=row,
+                column=col,
+                sticky="nsew",
+                padx=5,
+                pady=5,
+            )
+
+        plus_button.grid(
+            row=8,
+            column=4,
+            rowspan=2,
+            sticky="nsew",
+            padx=5,
+            pady=5,
+        )
+
+        equal_button.grid(
+            row=9,
+            column=5,
+            sticky="nsew",
+            padx=5,
+            pady=5,
+        )
         plus_button.grid(row=8, column=4, rowspan=2, sticky="nsew", padx=5, pady=5)
         equal_button.grid(row=9, column=5, sticky="nsew", padx=5, pady=5)
 
