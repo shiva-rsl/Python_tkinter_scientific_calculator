@@ -1,4 +1,4 @@
-<h1 align="center">Scientific Calculator — Python Tkinter</h1>
+# 🧮 Scientific Calculator — Python Tkinter
 
 <p align="center">
 <img src="https://img.shields.io/badge/status-complete-red" />
@@ -22,17 +22,17 @@
 - [Screenshots](#screenshots)
 - [License](#license)
 
-## What is Tkinter?
+## 🖥️ What is Tkinter?
 
 [Tkinter](https://docs.python.org/3/library/tkinter.html) is the standard GUI library for Python. It ships with most Python installations and is used here for buttons, labels, and the expression entry field.
 
-## Description
+## 📝 Description
 
 A desktop scientific calculator built with Python and Tkinter. The interface builds an expression; a separate engine normalizes symbols, validates the expression with Python’s AST, and evaluates it using a math-only namespace (not unrestricted `eval`).
 
 Trigonometry supports **degrees** and **radians**. `%` is **percent** (`50%` = `0.5`). Absolute value uses `abs(` (the `|x|` button), which is unambiguous for expression evaluation.
 
-## Installation
+## ⚙️ Installation
 
 1. Clone this repository:
 
@@ -52,7 +52,7 @@ cd Python_Tkinter_Calculator
 python calculator_tkinter.py
 ```
 
-## Requirements
+## 📋 Requirements
 
 - Python 3.10+
 - Tkinter (included with most Python installs)
@@ -63,7 +63,7 @@ On Debian/Ubuntu, if Tkinter is missing:
 sudo apt install python3-tk
 ```
 
-## Features
+## ✨ Features
 
 - Arithmetic: `+`, `-`, `×`, `÷`, `^`, parentheses
 - Percent: `50%` → `0.5`
@@ -77,7 +77,7 @@ sudo apt install python3-tk
 - Keyboard: type in the field, `Enter` calculates, `Esc` is all-clear; `*` and `/` become `×` and `÷`
 - Errors show in the status label instead of crashing (division by zero, domain errors, unmatched parentheses)
 
-## How it works
+## ⚙️ How it works
 
 1. Buttons insert tokens into the entry field.
 2. `engine.py` maps display symbols (`×`, `÷`, `^`, `π`, `√`, `ln`, `%`, `!`) to Python.
@@ -90,7 +90,7 @@ Run the engine tests:
 python -m unittest test_engine.py
 ```
 
-## Project structure
+## 📁 Project structure
 
 ```
 calculator_tkinter.py   # Tkinter UI
@@ -99,13 +99,13 @@ test_engine.py          # Unit tests for the engine
 LICENSE                 # MIT
 ```
 
-## Screenshots
+## 📸 Screenshots
 
 Light-themed scientific calculator GUI:
 
 <img src="Screenshots/calc.png" width="300" alt="Scientific calculator screenshot">
 
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE).
