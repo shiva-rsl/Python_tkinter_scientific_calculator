@@ -105,6 +105,7 @@ class CalculatorEngine:
 
         return self.format_result(value)
 
+
     def format_result(self, value: object) -> str:
         if isinstance(value, bool):
             raise CalculatorError("Invalid expression")
@@ -123,13 +124,12 @@ class CalculatorEngine:
                 return f"{value:.12e}"
             return str(value)
 
-        rounded = round(float(value), 12)
+        if value.is_integer() and abs(value) < 1e16:
+            return str(int(value))
 
-        if abs(rounded - round(rounded)) < 1e-12:
-            return str(int(round(rounded)))
+        return format(value, ".12g")
 
-        return format(rounded, ".12g")
-
+    
     def _power(self, base: float, exponent: float) -> float:
         if abs(exponent) > 1000:
             raise CalculatorError("Exponent too large")
